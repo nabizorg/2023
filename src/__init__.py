@@ -1,11 +1,14 @@
 import sqlite3
 
 import argon2.low_level
-from flask import abort, g, request, Flask
+from flask import abort, g, redirect, request, url_for, Flask
+
+from . import nvi
 
 app = Flask(__name__)
 app.config["DATABASE_PATH"] = "votes.db"
 app.config["TCKN_SALT"] = "foobarbaz"
+app.config["VOTEES"] = "A;B"
 
 # We will access sqlite from a multithreaded context, so we need to ensure that the
 # sqlite3 library's thread safety option allows it. This also forces us to not use
@@ -36,9 +39,57 @@ def hash_tckn(tckn: str) -> bytes:
                                             parallelism=ARGON2_PARALLELISM, hash_len=ARGON2_HASH_LEN, type=ARGON2_TYPE, version=ARGON2_VERSION)
 
 
+VOTEES = app.config["VOTEES"].split(";")
 @app.route("/", methods=("GET", "POST"))
 def index():
     if request.method == "GET":
-        abort(501)
+        cur = db.cursor()
+        cur.execute("SELECT vote, COUNT(vote) FROM votes GROUP BY vote;")
+
+        vote_counts: dict[str, int] = dict(map(lambda p: (VOTEES[p[0]], p[1]), cur.fetchall()))
+        return str(vote_counts)
     elif request.method == "POST":
-        abort(501)
+        # FIXME: Add captcha.
+        try:
+            vote: int = int(request.form["vote"])
+        except (KeyError, ValueError):
+            abort(400)
+
+        if vote >= len(VOTEES):
+            abort(400)
+
+        # FIXME: Character check?
+        try:
+            name: str = request.form["name"]
+            surname: str = request.form["surname"]
+        except KeyError:
+            abort(400)
+
+        if len(name) > 32 or len(surname) > 32:
+            abort(400)
+
+        try:
+            birth_year: int = int(request.form["birth_year"])
+        except (KeyError, ValueError):
+            abort(400)
+
+        # FIXME: High bound does not have enough information?
+        if birth_year < 1900 or birth_year > 2005:
+            abort(400)
+
+        try:
+            tckn: str = request.form["tckn"]
+        except (KeyError, ValueError):
+            abort(400)
+
+        if not nvi.validate_tckn(tckn):
+            abort(400)
+
+        if not nvi.verify_tckn(tckn, name=name, surname=surname, birth_year=request.form["birth_year"]):
+            abort(401)
+
+        with db:
+            cur = db.cursor()
+            cur.execute("INSERT OR REPLACE INTO votes(hashed_tckn, vote) VALUES(?, ?);", (hash_tckn(tckn), vote))
+
+        return redirect(url_for("index"))
