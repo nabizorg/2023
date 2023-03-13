@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>2023</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            margin-bottom: 30px;
+        }
+        #vote-counts {
+            margin: 0 auto;
+            width: 50%;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            text-align: center;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        th {
+            background-color: #eee;
+            font-weight: bold;
+        }
+        #voting-form {
+            margin: 0 auto;
+            width: 50%;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="number"], select {
+            width: 90%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="submit"] {
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Güncel Oy Sayımı</h1>
+    <div id="vote-counts">
+        <table>
+            <tr>
+                <th>Aday</th>
+                <th>Oy Sayısı</th>
+            </tr>
+            {% for candidate, count in vote_counts.items() %}
+                <tr>
+                    <td>{{ candidate }}</td>
+                    <td>{{ count }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <h1>Oy Ver</h1>
+    <div id="voting-form">
+        <form action="/" method="post">
+            <label for="vote">Aday:</label>
+            <select name="vote" id="vote">
+                {% for candidate in VOTEES %}
+                    {% set i = loop.index0 %}
+                    <option value="{{ i }}">{{ candidate }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="name">Ad:</label>
+            <input type="text" name="name" id="name" maxlength="32" required>
+
+            <label for="surname">Soyad:</label>
+            <input type="text" name="surname" id="surname" maxlength="32" required>
+
+            <label for="birth_year">Doğum Yılı:</label>
+            <input type="number" name="birth_year" id="birth_year" min="1900" max="2005" required>
+
+            <label for="tckn">TCKN:</label>
+            <input type="text" name="tckn" id="tckn" maxlength="11" required>
+
+            <button type="submit">Kaydet</button>
+        </form>
+    </div>
+</body>

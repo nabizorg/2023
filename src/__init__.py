@@ -1,7 +1,7 @@
 import sqlite3
 
 import argon2.low_level
-from flask import abort, g, redirect, request, url_for, Flask
+from flask import abort, g, redirect, request, url_for, Flask, render_template
 
 from . import nvi
 
@@ -47,7 +47,7 @@ def index():
         cur.execute("SELECT vote, COUNT(vote) FROM votes GROUP BY vote;")
 
         vote_counts: dict[str, int] = dict(map(lambda p: (VOTEES[p[0]], p[1]), cur.fetchall()))
-        return str(vote_counts)
+        return render_template("index.html", vote_counts=vote_counts)
     elif request.method == "POST":
         # FIXME: Add captcha.
         try:
