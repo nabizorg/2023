@@ -93,3 +93,9 @@ def index():
             cur.execute("INSERT OR REPLACE INTO votes(hashed_tckn, vote) VALUES(?, ?);", (hash_tckn(tckn), vote))
 
         return redirect(url_for("index"))
+
+
+@app.errorhandler(400)
+@app.errorhandler(401)
+def invalid_data(error: int):
+    return render_template("error.html")
