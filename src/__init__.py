@@ -74,7 +74,7 @@ def index():
             abort(400)
 
         # FIXME: High bound does not have enough information?
-        if birth_year < 1900 or birth_year > 2005:
+        if birth_year < 1900 or birth_year > 2003:
             abort(400)
 
         try:
