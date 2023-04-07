@@ -92,7 +92,7 @@ def index():
             cur = db.cursor()
             cur.execute("INSERT OR REPLACE INTO votes(hashed_tckn, vote) VALUES(?, ?);", (hash_tckn(tckn), vote))
 
-        return redirect(url_for("index"))
+        return render_template("success.html")
 
 
 @app.errorhandler(400)

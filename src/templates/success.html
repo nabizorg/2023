@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>2023</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            margin-bottom: 30px;
+        }
+        #error-body {
+            margin: 0 auto;
+            width: 50%;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Başarı</h1>
+    <div id="error-body">
+        Oyunuz kaydedilmiştir/değiştirilmiştir. Sonuçları <a href="{{ url_for('index') }}">ana sayfadan</a> takip edebilirsiniz.
+    </div>
+</body>
