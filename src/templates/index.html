@@ -87,7 +87,7 @@
         <form action="/" method="post">
             <label for="vote">Aday:</label>
             <select name="vote" id="vote">
-                {% for candidate in VOTEES %}
+                {% for candidate in candidates %}
                     {% set i = loop.index0 %}
                     <option value="{{ i }}">{{ candidate }}</option>
                 {% endfor %}
