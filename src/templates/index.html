@@ -108,13 +108,14 @@
                     <th>Aday</th>
                     <th>Oy Sayısı</th>
                 </tr>
-                {% for candidate, count in vote_counts.items() %}
+                {% for candidate, rate in vote_rates.items() %}
                     <tr>
                         <td>{{ candidate }}</td>
-                        <td>{{ count }}</td>
+                        <td>%{{ rate }}</td>
                     </tr>
                 {% endfor %}
             </table>
+            <p>{{ total_votes }} kişi oy kullandı.</p>
         </div>
 
         <h1>Oy Ver</h1>
