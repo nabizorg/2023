@@ -48,7 +48,7 @@ def index():
 
         vote_counts: dict[str, int] = dict(map(lambda p: (app.config["candidates"][p[0]], p[1]), cur.fetchall()))
         total_votes = sum(vote_counts.values())
-        vote_rates = {candidate: (100 * vote_counts[candidate]) / total_votes for candidate in vote_counts}
+        vote_rates = {candidate: round((100 * vote_counts[candidate]) / total_votes, 2) for candidate in vote_counts}
         return render_template("index.html", vote_counts=vote_counts, total_votes=total_votes, vote_rates=vote_rates, candidates=app.config["candidates"])
     elif request.method == "POST":
         # FIXME: Add captcha.
