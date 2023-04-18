@@ -104,12 +104,14 @@
             <table>
                 <tr>
                     <th>Aday</th>
+                    <th>Oy Oranı</th>
                     <th>Oy Sayısı</th>
                 </tr>
                 {% for candidate, rate in vote_rates.items() %}
                     <tr>
                         <td>{{ candidate }}</td>
                         <td>%{{ rate }}</td>
+                        <td>{{ vote_counts[candidate] }}</td>
                     </tr>
                 {% endfor %}
             </table>
@@ -146,15 +148,15 @@
 
         <h1>Sıkça Sorulan Sorular</h1>
         <div class="faq">
-            <div class="question">Bilgilerimi neden istiyorsunuz?</div>
+            <div class="question">&gt; Bilgilerimi neden istiyorsunuz?</div>
             <div class="answer">Oyu veren kişinin gerçek bir insan olup olmadığını denetlemek için kullanıyoruz. Doldurduğunuz verilerin Nüfus ve Vatandaşlık İşleri Genel Müdürlüğünün sağladığı hizmetler tarafından geçerli olup olmadığına bakıyoruz. Merak etmeyin, kime oy verdiğinizi onlara iletmiyoruz.</div>
-            <div class="question">Bilgilerimi saklıyor musunuz?</div>
+            <div class="question">&gt; Bilgilerimi saklıyor musunuz?</div>
             <div class="answer">Direkt olarak bilgilerinizi saklamıyoruz.</div>
-            <div class="question">Eğer bilgilerimi saklamıyorsanız VPN/Proxy kullanarak birden fazla oy verip vermediğimi nereden anlıyorsunuz?</div>
+            <div class="question">&gt; Eğer bilgilerimi saklamıyorsanız VPN/Proxy kullanarak birden fazla oy verip vermediğimi nereden anlıyorsunuz?</div>
             <div class="answer">Direkt olarak bilgilerinizi saklamıyoruz ama T.C. kimlik numaranızı kullanarak tersine döndürülemeyen bir değer hesaplıyoruz. Bu sayede kimin kime oy verdiğini biz de bilmiyoruz. Tabi bu herhangi bir veritabanı sızıntısında zaten T.C. kimlik numaranızı bilen bir kişinin kime oy vereceğinizi bilemeyeceği anlamına gelmez. Sonuçta T.C. kimlik numaranızı bilen kişi de aynı işlemle aynı değeri bulup veritabanındaki bir oy ile eşleştirebilir. Bu yüzden de veritabanın güvenliği konusunda elimizden geleni yapıyoruz.</div>
-            <div class="question">Size güvenebilir miyim?</div>
+            <div class="question">&gt; Size güvenebilir miyim?</div>
             <div class="answer">Bu sizin karar vermeniz gereken şey. Olabildiğince şeffaf olabilmek için sitemizin kaynak kodunu <a href="https://github.com/nabizorg/2023">GitHub'a<a> yükledik fakat kaynak kodun olması sunucumuzda çalışan kodun gösterdiğimiz kod olduğu anlamına gelmez. Fakat yine de bu konuda çalışmalara devam edeceğiz.</div>
-            <div class="question">Peki sonuçlar ne kadar doğru?</div>
+            <div class="question">&gt; Peki sonuçlar ne kadar doğru?</div>
             <div class="answer">Bu tamamen sitemizi kullanan insanların dağılımına bağlı. Ne kadar heterojen bir dağılım olursa o kadar tutarlı olur.</div>
         </div>
     </main>
