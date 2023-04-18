@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <title>2023</title>
     <style>
@@ -9,11 +10,17 @@
             font-family: Arial, sans-serif;
             background-color: #f9f9f9;
         }
+
+        div {
+            min-width: 250px;
+        }
+
         h1 {
             text-align: center;
             margin-top: 50px;
             margin-bottom: 30px;
         }
+
         #error-body {
             margin: 0 auto;
             width: 50%;
@@ -22,17 +29,11 @@
             border-radius: 10px;
             background-color: #fff;
         }
+
         label {
             display: block;
             margin-bottom: 10px;
             font-weight: bold;
-        }
-
-        @media (max-width: 767px) {
-            #error-body {
-                width: 90%;
-                margin: 30px auto;
-            }
         }
     </style>
 </head>
