@@ -19,11 +19,18 @@ assert sqlite3.threadsafety == 3
 db = sqlite3.connect(app.config["database_path"], check_same_thread=False)
 with db:
     db.execute("""
-CREATE TABLE IF NOT EXISTS votes (
-    hashed_tckn BLOB PRIMARY KEY,
-    vote INTEGER NOT NULL
+CREATE TABLE IF NOT EXISTS voters (
+    hashed_tckn BLOB PRIMARY KEY
 ) STRICT;
 """)
+    db.execute("""
+CREATE TABLE IF NOT EXISTS votes (
+    votee_index INTEGER PRIMARY KEY,
+    vote_amount INTEGER NOT NULL
+) STRICT;
+""")
+    for votee_index in range(len(app.config["candidates"])):
+        db.execute("INSERT OR IGNORE INTO votes(votee_index, vote_amount) VALUES(?, 0);", (votee_index,))
 
 # DO NOT TOUCH THIS FUNCTION IF YOU DO NOT KNOW WHAT YOU ARE DOING.
 # Populated with the recommended parameters from 2023-03-12. Changing parameters will break the whole DB as the
@@ -44,7 +51,7 @@ def hash_tckn(tckn: str) -> bytes:
 def index():
     if request.method == "GET":
         cur = db.cursor()
-        cur.execute("SELECT vote, COUNT(vote) FROM votes GROUP BY vote;")
+        cur.execute("SELECT votee_index, vote_amount FROM votes;")
 
         vote_counts: dict[str, int] = dict(map(lambda p: (app.config["candidates"][p[0]], p[1]), cur.fetchall()))
         total_votes = sum(vote_counts.values())
@@ -90,12 +97,20 @@ def index():
         if not nvi.validate_tckn(tckn):
             abort(400)
 
+        hashed_tckn = hash_tckn(tckn)
+        cur = db.cursor()
+        cur.execute("SELECT EXISTS(SELECT 1 FROM voters WHERE hashed_tckn = ? LIMIT 1);", (hashed_tckn,))
+
+        if cur.fetchone()[0]:
+            abort(409)
+
         if not nvi.verify_tckn(tckn, name=name, surname=surname, birth_year=request.form["birth_year"]):
             abort(401)
 
         with db:
             cur = db.cursor()
-            cur.execute("INSERT OR REPLACE INTO votes(hashed_tckn, vote) VALUES(?, ?);", (hash_tckn(tckn), vote))
+            cur.execute("INSERT INTO voters(hashed_tckn) VALUES(?);", (hashed_tckn,))
+            cur.execute("UPDATE votes SET vote_amount = vote_amount + 1 WHERE votee_index = ?;", (vote,))
 
         return render_template("success.html")
 
