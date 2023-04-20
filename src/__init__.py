@@ -118,4 +118,10 @@ def index():
 @app.errorhandler(400)
 @app.errorhandler(401)
 def invalid_data(error: int):
-    return render_template("error.html")
+    return render_template("error.html", err_message="Girdiğiniz bilgilerde bir hata tespit edilmiştir. Lütfen kontrol edip tekrar deneyiniz.")
+
+
+@app.errorhandler(409)
+def conflicted_request(error: int):
+    return render_template("error.html", err_message="Daha önce oy kullandığınız için tekrardan oy kullanamazsınız. Detaylı bilgi için Sıkça "
+                                                     "Sorulan Soruları okuyunuz.")
