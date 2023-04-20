@@ -118,6 +118,27 @@
             <p>{{ total_votes }} kişi oy kullandı.</p>
         </div>
 
+        <h1>Sıkça Sorulan Sorular</h1>
+        <div class="faq">
+            <div class="question">&gt; Bilgilerimi neden istiyorsunuz?</div>
+            <div class="answer">Oyu veren kişinin gerçek bir insan olup olmadığını denetlemek için kullanıyoruz. Doldurduğunuz verilerin Nüfus ve Vatandaşlık İşleri Genel Müdürlüğünün sağladığı hizmetler tarafından geçerli olup olmadığına bakıyoruz. Merak etmeyin, kime oy verdiğinizi onlara iletmiyoruz.</div>
+            <div class="question">&gt; Bilgilerimi saklıyor musunuz?</div>
+            <div class="answer">Birden fazla oy vermenizi engellemek adına T.C. kimlik numaranızı kullanarak tersine döndürülemeyen bir değer hesaplıyoruz. Size ait sadece bu değeri tutuyoruz.</div>
+            <div class="question">&gt; Tersine dönderilemeyen bir değer mi, o da ne?</div>
+            <div class="answer">Mesela bize ait bir T.C. kimlik numarası şu şekilde tutuluyor: <i>e0da032c7a3cd60e8982f80c8da9eb34b5d0d333edb299875885310384a1596e</i></div>
+            <div class="question">&gt; Peki benim kime oy verdiğim gizli kalıyor mu?</div>
+            <div class="answer">Evet. Oy verdiğiniz zaman sizin T.C. kimlik numaranızı seçmen havuzumuza kaydediyoruz, verdiğiniz oyu da adayların havuzuna ekliyoruz. Böylelikle seçmenler ile adaylar arasında herhangi bir ilişki bulunmuyor.</div>
+            <div class="question">&gt; Size güvenebilir miyim?</div>
+            <div class="answer">Bu sizin karar vermeniz gereken şey. Olabildiğince şeffaf olabilmek için sitemizin kaynak kodunu <a href="https://github.com/nabizorg/2023">GitHub<a>'a yükledik fakat kaynak kodunu paylaşmamız, sunucumuzda çalışan kodun gösterdiğimiz kod olduğu anlamına gelmez. Şeffaflık ve dolayısıyla güven kazanmak adına bu konuda çalışmalara devam edeceğiz.</div>
+            <div class="question">&gt; Oyumu değiştirmem mümkün mü?</div>
+            <div class="answer">Gizliliği artırmak adına kullandığımız havuz sisteminden dolayı seçmenler ve adayların oy sayıları birbiriyle ilişkili değil. Oyunuzu güncellemeye çalıştığınızda daha önceden oy verdiğiniz adaydan 1 oy düşmemiz gerekir, lakin bu mümkün değil çünkü kime oy verdiğiniz bilinmiyor.</div>
+            <div class="question">&gt; Peki sonuçlar ne kadar doğru?</div>
+            <div class="answer">Bu tamamen sitemizi kullanan insanların dağılımına bağlı. Ne kadar heterojen bir dağılım olursa o kadar tutarlı olur.</div>
+            <div class="question">&gt; Seçim ikinci tura kalırsa ne olacak?</div>
+            <div class="answer">Seçim ikinci tura kaldığı takdirde yeni bir oylama daha başlatacağız.</div>
+
+        </div>
+
         <h1>Oy Ver</h1>
         <div id="voting-form">
             <form action="/" method="post">
@@ -144,20 +165,6 @@
 
                 <button type="submit">Kaydet</button>
             </form>
-        </div>
-
-        <h1>Sıkça Sorulan Sorular</h1>
-        <div class="faq">
-            <div class="question">&gt; Bilgilerimi neden istiyorsunuz?</div>
-            <div class="answer">Oyu veren kişinin gerçek bir insan olup olmadığını denetlemek için kullanıyoruz. Doldurduğunuz verilerin Nüfus ve Vatandaşlık İşleri Genel Müdürlüğünün sağladığı hizmetler tarafından geçerli olup olmadığına bakıyoruz. Merak etmeyin, kime oy verdiğinizi onlara iletmiyoruz.</div>
-            <div class="question">&gt; Bilgilerimi saklıyor musunuz?</div>
-            <div class="answer">Direkt olarak bilgilerinizi saklamıyoruz.</div>
-            <div class="question">&gt; Eğer bilgilerimi saklamıyorsanız VPN/Proxy kullanarak birden fazla oy verip vermediğimi nereden anlıyorsunuz?</div>
-            <div class="answer">Direkt olarak bilgilerinizi saklamıyoruz ama T.C. kimlik numaranızı kullanarak tersine döndürülemeyen bir değer hesaplıyoruz. Bu sayede kimin kime oy verdiğini biz de bilmiyoruz. Tabi bu herhangi bir veritabanı sızıntısında zaten T.C. kimlik numaranızı bilen bir kişinin kime oy vereceğinizi bilemeyeceği anlamına gelmez. Sonuçta T.C. kimlik numaranızı bilen kişi de aynı işlemle aynı değeri bulup veritabanındaki bir oy ile eşleştirebilir. Bu yüzden de veritabanın güvenliği konusunda elimizden geleni yapıyoruz.</div>
-            <div class="question">&gt; Size güvenebilir miyim?</div>
-            <div class="answer">Bu sizin karar vermeniz gereken şey. Olabildiğince şeffaf olabilmek için sitemizin kaynak kodunu <a href="https://github.com/nabizorg/2023">GitHub'a<a> yükledik fakat kaynak kodun olması sunucumuzda çalışan kodun gösterdiğimiz kod olduğu anlamına gelmez. Fakat yine de bu konuda çalışmalara devam edeceğiz.</div>
-            <div class="question">&gt; Peki sonuçlar ne kadar doğru?</div>
-            <div class="answer">Bu tamamen sitemizi kullanan insanların dağılımına bağlı. Ne kadar heterojen bir dağılım olursa o kadar tutarlı olur.</div>
         </div>
     </main>
 </body>
